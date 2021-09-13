@@ -23,27 +23,33 @@ import Api from '../../service/api';
 const api = new Api;
  
 export default function PagPrincipal() {
-  const [produtos, setProdutos] = useState([]);
-  const [imagem, setImg] = useState('');
-  const [nome, setNome] = useState('');
-  const [categoria, setCategoria] = useState('');
-  const [precode, setPrecoDe] = useState('');
-  const [precopor, setPrecoPor] = useState('');
-  const [avaliacao, setAvaliacao] = useState('');
-  const [estoque, setEstoque] = useState('');
-  const [descricao, setDescricao] = useState('');
+  const [produtos, setProdutos]     = useState([]);
+  const [imagem, setImg]            = useState('');
+  const [nome, setNome]             = useState('');
+  const [categoria, setCategoria]   = useState('');
+  const [precode, setPrecoDe]       = useState('');
+  const [precopor, setPrecoPor]     = useState('');
+  const [avaliacao, setAvaliacao]   = useState('');
+  const [estoque, setEstoque]       = useState('');
+  const [descricao, setDescricao]   = useState('');
   const [idalterado, setIdalterado] = useState(0);
 
   const loading = useRef(null);
 
   async function Listar() {
+    loading.current.continuousStart();
+
     let r = await api.Listar();
     setProdutos(r);
+
+    loading.current.complete();
   }
 
   async function inserir() {
     if(idalterado == 0) {
       let r = await api.Inserir(nome, categoria, precode, precopor, avaliacao, descricao, estoque, imagem);
+
+      loading.current.continuousStart();
 
       if(r.erro) {
           toast.error(`${r.erro}`);
@@ -60,6 +66,8 @@ export default function PagPrincipal() {
       } else 
         toast.dark('✏️ Produto alterado!');
     }
+
+    loading.current.complete();
 
     LimparCampos();
     Listar();
@@ -78,7 +86,11 @@ export default function PagPrincipal() {
   }
 
   async function deletar(id) {
+    
+    loading.current.continuousStart();
+
     confirmAlert({
+
       title: 'Remover Aluno',
       message: `Tem certeza que deseja remover o aluno ${id} ?`,
       buttons: [
@@ -98,7 +110,11 @@ export default function PagPrincipal() {
           label: 'Não'
         }
       ]
+
     });
+
+    loading.current.complete();
+
   }
 
   
@@ -124,7 +140,7 @@ export default function PagPrincipal() {
     return(
         <Container>
           <ToastContainer />
-           <LoadingBar color="red" ref={loading} />
+           <LoadingBar color="cyan" ref={loading} />
             <ReactTooltip />
               <div className="parte1">
               <Menu />
@@ -138,7 +154,7 @@ export default function PagPrincipal() {
                   <Bloco1>
                     <div className="titulo">
                         <div className="barra"><img src={BarraT} alt="" /></div>
-                        <div className="texto1">{ idalterado == 0 ? "Novo Produto" : "Alterando Produto"}</div>
+                        <div className="texto1">{ idalterado == 0 ? "Novo Produto" : `Alterando Produto ${produtos}`}</div>
                     </div>
 
                     <div className="inputs">
@@ -194,7 +210,7 @@ export default function PagPrincipal() {
                             <tr className={i % 2 == 0 ? "alternado" : ""}>
                               <td><img src={item.img_produto} alt="" style={{width: '40px', height: '40px'}}/></td>
                               <td> {item.id_produto} </td>
-                              <td data-tip={ item.nm_produto.length > 15 ? item.nm_produto : null }> { item.nm_produto != null && item.nm_produto.length >= 15 ? item.nm_produto.substr(0, 15) + '...' : item.nm_produto } </td>
+                              <td title={item.nm_produto}> { item.nm_produto != null && item.nm_produto.length >= 20 ? item.nm_produto.substr(0, 15) + '...' : item.nm_produto } </td>
                               <td> {item.ds_categoria} </td>
                               <td> {item.vl_preco_por} </td>
                               <td> {item.qtd_estoque} </td>
