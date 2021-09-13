@@ -45,17 +45,18 @@ export default function PagPrincipal() {
     if(idalterado == 0) {
       let r = await api.Inserir(nome, categoria, precode, precopor, avaliacao, descricao, estoque, imagem);
 
-      if(r.error) {
-          toast.error(`${r.error}`);
-          return;
-      } else 
-          toast.dark('💕 Produto cadastrado com sucesso!');
+      if(r.erro) {
+          toast.error(`${r.erro}`);
+      } else {
+        toast.dark('💕 Produto cadastrado com sucesso!');
+      }
+
     } else {
       let r = await api.Alterar(idalterado, nome, categoria, precode, precopor, avaliacao, descricao, estoque, imagem);
 
-      if(r.error) {
-        toast.error(`${r.error}`);
-        return;
+      if(r.erro) {
+        toast.error(`${r.erro}`);
+
       } else 
         toast.dark('✏️ Produto alterado!');
     }
@@ -85,8 +86,8 @@ export default function PagPrincipal() {
           label: 'Sim',
           onClick: async () => {
             let r = await api.Remover(id);
-            if (r.error)
-              toast.error(`${r.error}`);
+            if (r.erro)
+              toast.error(`${r.erro}`);
             else {
               toast.dark('🗑️ Produto removido!');
               Listar();
