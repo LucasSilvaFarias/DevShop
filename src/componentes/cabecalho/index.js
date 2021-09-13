@@ -9,7 +9,10 @@ export default function Menu() {
     return (
         <Container>
             <div className="usuario">
+              <div className="msg-usu">
                 <div className="img-1"><img src={Fotop} alt="Foto de perfil" /></div>
+                <div class="absolute">3</div>
+              </div>
                 <div className="texto-1">Olá, <b>Lionel Messi</b></div>
             </div>
             <div className="botoes">

@@ -9,6 +9,7 @@ const Container = styled.div`
     background-color: #fff; 
     padding: 15px 110px 15px 60px;
 
+
     .usuario {
         display: flex;
         flex-direction: row;     
@@ -20,7 +21,22 @@ const Container = styled.div`
         height: 50px;
         border-radius: 40px;
         margin-right: 10px;
+        cursor: pointer;
     }   
+
+    .absolute {
+        color: white;
+        background-color: #DB21BD;
+        border: 3px solid white;
+        border-radius: 50%;
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        text-align: center;
+        font-size: .7em;
+        top: 8px;
+        margin-left: 30px; 
+    }
 
     button {
         background-color: #119FDC;

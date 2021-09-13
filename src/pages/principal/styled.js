@@ -3,7 +3,7 @@ import styled from "styled-components"
 const Container = styled.div`
     display: flex;
     flex-direction: row;
-    background-color: #F5F5F5;
+    background-color: #E5E5E4;
 
     .linha {margin-top: -17px; text-align: center;}
 `;
@@ -81,6 +81,8 @@ const Bloco1 = styled.div`
         width: 32.5em;
         margin: 0px 15px 0px 5px;
         border-radius: 5px;
+        background: #FFFFFF; 
+        border: 1px solid #A8A8A8;
     }
 
     .btn button {
@@ -97,7 +99,7 @@ const Bloco1 = styled.div`
 
 
 
-    input { height: 28px; border-radius: 5px;}
+    input { height: 28px; border-radius: 5px; background: #FFFFFF; border: 1px solid #A8A8A8;}
 `;
 
 
@@ -137,11 +139,11 @@ const Bloco2 = styled.div`
     td {
         text-align: left;
         height:  61.93px;
-        padding: 1em;
         color: #6D6868;
         font-weight: 600;
-        padding: .1em 2.2em;
+        padding: .1em 2em;
         font-weight: 500;
+        background-color: #E5E5E4;
     }
 
 
@@ -152,16 +154,28 @@ const Bloco2 = styled.div`
         padding: 1em;
         color: #ffff;
         font-weight: 800;
-        padding: 1em 2.2em;
+        padding: 1em 2em;
         font-weight: 500;
     } 
 
-    .linha-alternada {
+    .alternado td {
         background-color: #fff;
     }
 
     .coluna-acao {
         width: .1em;
+    }
+
+    .coluna-acao > button {
+       visibility: hidden;
+       margin: -.1em -1em;
+    }
+    
+
+    tr:hover {
+        .coluna-acao > button {
+            visibility: visible;
+         } 
     }
 `;
 
